@@ -1,0 +1,152 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hi",
+        "Hey",
+        "Hello",
+        "Good morning",
+        "How are you",
+        "Is anyone there?"
+      ],
+      "responses": [
+        "Hello! I'm your therapy assistant.",
+        "Hi there! How can I help you today?",
+        "Hello! How are you feeling today?"
+      ]
+    },
+    {
+      "tag": "depression",
+      "patterns": [
+        "I feel depressed",
+        "I'm sad all the time",
+        "Nothing makes me happy",
+        "I can't find joy in anything"
+      ],
+      "responses": [
+        "I understand you're going through a difficult time. Have you considered talking to a professional therapist?",
+        "Depression can be overwhelming. Would you like to talk more about what's troubling you?",
+        "You're not alone in this. Many people experience depression and there is help available."
+      ]
+    },
+    {
+      "tag": "anxiety",
+      "patterns": [
+        "I'm feeling anxious",
+        "I can't stop worrying",
+        "I have panic attacks",
+        "Everything makes me nervous"
+      ],
+      "responses": [
+        "Let's try a simple breathing exercise together. Take a deep breath in for 4 counts, hold for 4, and release for 4.",
+        "Anxiety is common but manageable. Would you like to discuss some coping strategies?",
+        "I hear you. Anxiety can be challenging. Have you tried any relaxation techniques?"
+      ]
+    },
+    {
+      "tag": "stress",
+      "patterns": [
+        "I'm stressed out",
+        "Too much pressure",
+        "Can't handle the stress",
+        "Everything is overwhelming"
+      ],
+      "responses": [
+        "Let's identify what's causing your stress and work on it together.",
+        "Remember to take breaks and practice self-care. Would you like some stress management tips?",
+        "Stress can be overwhelming. Have you tried any stress-relief activities?"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "See you later", "Goodbye", "Thank you for help"],
+      "responses": [
+        "Take care!",
+        "Remember, you're not alone.",
+        "Goodbye! Don't hesitate to come back if you need support."
+      ]
+    },
+    {
+      "tag": "sleep_issues",
+      "patterns": [
+        "I can't sleep",
+        "Having trouble sleeping",
+        "Insomnia problems",
+        "Can't fall asleep",
+        "Wake up frequently",
+        "Bad sleep quality",
+        "Nightmares"
+      ],
+      "responses": [
+        "Sleep issues can significantly impact mental health. Let's discuss some sleep hygiene techniques.",
+        "Have you tried establishing a regular sleep schedule? Going to bed and waking up at the same time can help.",
+        "Consider creating a relaxing bedtime routine. Would you like some suggestions?"
+      ]
+    },
+    {
+      "tag": "self_esteem",
+      "patterns": [
+        "I feel worthless",
+        "No self confidence",
+        "I hate myself",
+        "Never good enough",
+        "Everyone is better than me",
+        "Low self esteem"
+      ],
+      "responses": [
+        "Your worth isn't determined by others' opinions or achievements. Let's work on building self-confidence.",
+        "Everyone has unique strengths. Would you like to explore yours?",
+        "Self-acceptance is a journey. What specific aspects would you like to work on?"
+      ]
+    },
+    {
+      "tag": "relationship_issues",
+      "patterns": [
+        "Relationship problems",
+        "Partner doesn't understand",
+        "Trust issues",
+        "Communication problems",
+        "Feel lonely in relationship",
+        "Marriage troubles"
+      ],
+      "responses": [
+        "Relationship challenges can be very stressful. What specific aspects are troubling you?",
+        "Open communication is key in relationships. Have you tried expressing your feelings to your partner?",
+        "Would you like to discuss some communication strategies for better relationships?"
+      ]
+    },
+    {
+      "tag": "coping_strategies",
+      "patterns": [
+        "How to cope",
+        "Need help dealing with",
+        "Ways to handle stress",
+        "Coping techniques",
+        "Managing emotions",
+        "Self-help strategies"
+      ],
+      "responses": [
+        "Let's explore some healthy coping strategies together. What works for one person might not work for another.",
+        "Some effective coping methods include deep breathing, meditation, exercise, and journaling. Would you like to learn more about any of these?",
+        "It's important to have multiple coping tools. Shall we discuss what might work best for you?"
+      ]
+    },
+    {
+      "tag": "mindfulness",
+      "patterns": [
+        "How to be mindful",
+        "Stay present",
+        "Meditation help",
+        "Mind always racing",
+        "Can't focus",
+        "Need peace of mind"
+      ],
+      "responses": [
+        "Mindfulness starts with simple awareness. Let's try a quick grounding exercise together.",
+        "Focus on your breath for a moment. Notice how it feels as you breathe in and out.",
+        "Regular mindfulness practice can help reduce anxiety and improve focus. Would you like some daily mindfulness tips?"
+      ]
+    }
+  ]
+}

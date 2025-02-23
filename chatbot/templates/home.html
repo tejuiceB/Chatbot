@@ -1,0 +1,235 @@
+{% extends 'base.html' %} {% block content %}
+<style>
+  .hero-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 60px 0;
+    border-radius: 15px;
+    margin-bottom: 40px;
+  }
+  .feature-card {
+    transition: transform 0.3s ease;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .feature-card:hover {
+    transform: translateY(-5px);
+  }
+  .blog-card {
+    height: 100%;
+    transition: transform 0.3s ease;
+  }
+  .blog-card:hover {
+    transform: scale(1.02);
+  }
+  .cta-section {
+    background-color: #f8f9fa;
+    padding: 40px;
+    border-radius: 15px;
+    margin: 40px 0;
+  }
+</style>
+
+<!-- Hero Section -->
+<div class="hero-section text-center">
+  <h1 class="display-4 mb-4">Welcome to Therapy Chat</h1>
+  <p class="lead mb-4">
+    Your Mental Health Companion - Professional Support at Your Fingertips
+  </p>
+  {% if not user.is_authenticated %}
+  <div class="mt-4">
+    <a href="{% url 'register' %}" class="btn btn-light btn-lg mx-2"
+      >Get Started</a
+    >
+    <a href="{% url 'login' %}" class="btn btn-outline-light btn-lg mx-2"
+      >Sign In</a
+    >
+  </div>
+  {% endif %}
+</div>
+
+<!-- Latest Blogs Section - Visible to all -->
+<div class="row">
+  <div class="col-12 text-center mb-4">
+    <h2>Latest Articles</h2>
+    <p class="text-muted">Stay informed with our mental health resources</p>
+  </div>
+
+  {% if blogs %}
+  {% for blog in blogs %}
+  <div class="col-md-4 mb-4">
+    <div class="card blog-card">
+      <div class="card-body">
+        <h5 class="card-title">{{ blog.title }}</h5>
+        <div class="mb-3">
+          <small class="text-muted">
+            <i class="fas fa-user"></i>
+            {% if blog.author.userprofile.user_type == 'doctor' %} Dr. {% endif %} {{ blog.author.username }}
+            <span class="mx-2">|</span>
+            <i class="fas fa-calendar"></i> {{ blog.created_at|date }}
+          </small>
+        </div>
+        <p class="card-text">{{ blog.content|truncatewords:30 }}</p>
+        <a href="{% url 'blogs' %}" class="btn btn-outline-primary">Read More</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <div class="col-12 text-center">
+    <p class="text-muted">No blog posts available at the moment.</p>
+  </div>
+  {% endif %}
+</div>
+
+{% if not user.is_authenticated %}
+<div class="row mb-5">
+  <div class="col-12 text-center">
+    <h2>Welcome to Mental Health Support</h2>
+    <p class="text-muted">Sign up or log in to access all features:</p>
+    <div class="mt-3">
+      <a href="{% url 'register' %}" class="btn btn-primary mx-2">Sign Up</a>
+      <a href="{% url 'login' %}" class="btn btn-outline-primary mx-2">Login</a>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<!-- Authenticated User Content -->
+{% if user.is_authenticated %}
+<div class="row my-5">
+  <div class="col-12 text-center mb-4">
+    <h2>Welcome Back, {{ user.username }}!</h2>
+    <p class="text-muted">What would you like to do today?</p>
+  </div>
+
+  <!-- Service Cards -->
+  <div class="col-md-3 mb-4">
+    <div class="card h-100 service-card">
+      <div class="card-body text-center">
+        <i class="fas fa-comments fa-3x mb-3 text-primary"></i>
+        <h5 class="card-title">Chat with Therapist</h5>
+        <p class="card-text">Start a conversation with our AI therapist.</p>
+        <a href="{% url 'chat' %}" class="btn btn-primary">Start Chat</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-4">
+    <div class="card h-100 service-card">
+      <div class="card-body text-center">
+        <i class="fas fa-calendar-alt fa-3x mb-3 text-success"></i>
+        <h5 class="card-title">Book Appointment</h5>
+        <p class="card-text">Schedule a session with our experts.</p>
+        <a href="{% url 'doctors' %}" class="btn btn-success">Book Now</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-4">
+    <div class="card h-100 service-card">
+      <div class="card-body text-center">
+        <i class="fas fa-hospital fa-3x mb-3 text-info"></i>
+        <h5 class="card-title">Find Hospitals</h5>
+        <p class="card-text">Locate mental health facilities near you.</p>
+        <a href="{% url 'hospitals' %}" class="btn btn-info text-white"
+          >Find Now</a
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-4">
+    <div class="card h-100 service-card">
+      <div class="card-body text-center">
+        <i class="fas fa-blog fa-3x mb-3 text-warning"></i>
+        <h5 class="card-title">Health Resources</h5>
+        <p class="card-text">Read our latest mental health articles.</p>
+        <a href="{% url 'blogs' %}" class="btn btn-warning">Read More</a>
+      </div>
+    </div>
+  </div>
+
+  {% if user.userprofile.user_type == 'doctor' %}
+  <div class="col-md-3 mb-4">
+    <div class="card h-100 service-card">
+      <div class="card-body text-center">
+        <i class="fas fa-calendar-check fa-3x mb-3 text-primary"></i>
+        <h5 class="card-title">Manage Appointments</h5>
+        <p class="card-text">View and manage your appointments.</p>
+        <a href="{% url 'manage_appointments' %}" class="btn btn-primary"
+          >Manage</a
+        >
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endif %}
+
+<!-- Features Section -->
+<div class="row mb-5">
+  <div class="col-12 text-center mb-4">
+    <h2>Our Services</h2>
+    <p class="text-muted">
+      Comprehensive mental health support at your convenience
+    </p>
+  </div>
+
+  <div class="col-md-3 mb-4">
+    <div class="card feature-card h-100">
+      <div class="card-body text-center">
+        <i class="fas fa-comments fa-3x mb-3 text-primary"></i>
+        <h5 class="card-title">Chat Therapy</h5>
+        <p class="card-text">
+          Connect with our AI therapist anytime, anywhere.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-4">
+    <div class="card feature-card h-100">
+      <div class="card-body text-center">
+        <i class="fas fa-hospital fa-3x mb-3 text-success"></i>
+        <h5 class="card-title">Find Hospitals</h5>
+        <p class="card-text">Locate nearby mental health facilities easily.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-4">
+    <div class="card feature-card h-100">
+      <div class="card-body text-center">
+        <i class="fas fa-user-md fa-3x mb-3 text-info"></i>
+        <h5 class="card-title">Expert Doctors</h5>
+        <p class="card-text">Book appointments with qualified therapists.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 mb-4">
+    <div class="card feature-card h-100">
+      <div class="card-body text-center">
+        <i class="fas fa-blog fa-3x mb-3 text-warning"></i>
+        <h5 class="card-title">Health Blog</h5>
+        <p class="card-text">Read expert articles on mental wellness.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA Section -->
+<div class="cta-section text-center">
+  <h3>Ready to Start Your Mental Health Journey?</h3>
+  <p class="lead mb-4">
+    Join thousands of people who trust Therapy Chat for their mental wellness.
+  </p>
+  {% if user.is_authenticated %}
+  <a href="{% url 'chat' %}" class="btn btn-primary btn-lg">Start Chatting</a>
+  {% else %}
+  <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Sign Up Now</a>
+  {% endif %}
+</div>
+{% endblock %}

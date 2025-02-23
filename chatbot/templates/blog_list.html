@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-4">
+    <h2 class="text-center mb-4">Blog Posts</h2>
+    <div class="row">
+        {% if blogs %}
+            {% for blog in blogs %}
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ blog.title }}</h5>
+                            <p class="card-text text-muted">
+                                Category: {{ blog.category.name }} | 
+                                Author: {{ blog.author.username }} |
+                                Posted: {{ blog.created_at|date:"M d, Y" }}
+                            </p>
+                            <p class="card-text">{{ blog.content|truncatewords:50 }}</p>
+                            <a href="#" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center">
+                <p>No blog posts available.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

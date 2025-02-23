@@ -1,0 +1,82 @@
+{% extends 'base.html' %} {% block content %}
+<style>
+  .status-pending {
+    background-color: #ffc107 !important;
+  }
+  .status-confirmed {
+    background-color: #28a745 !important;
+  }
+  .status-cancelled {
+    background-color: #dc3545 !important;
+  }
+  .appointment-status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 15px;
+    color: white;
+  }
+</style>
+
+<div class="container py-4">
+  <h2 class="text-center mb-4">Manage Appointments</h2>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Patient</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Notes</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for appointment in appointments %}
+        <tr>
+          <td>{{ appointment.patient.username }}</td>
+          <td>{{ appointment.date|date:"F d, Y h:i A" }}</td>
+          <td>
+            <span class="appointment-status status-{{ appointment.status }}">
+              {{ appointment.status|title }}
+            </span>
+          </td>
+          <td>{{ appointment.notes }}</td>
+          <td>
+            {% if appointment.status == 'pending' %}
+            <form method="post" class="d-inline">
+              {% csrf_token %}
+              <input
+                type="hidden"
+                name="appointment_id"
+                value="{{ appointment.id }}"
+              />
+              <input type="hidden" name="action" value="accept" />
+              <button type="submit" class="btn btn-success btn-sm">
+                Accept
+              </button>
+            </form>
+            <form method="post" class="d-inline">
+              {% csrf_token %}
+              <input
+                type="hidden"
+                name="appointment_id"
+                value="{{ appointment.id }}"
+              />
+              <input type="hidden" name="action" value="reject" />
+              <button type="submit" class="btn btn-danger btn-sm">
+                Reject
+              </button>
+            </form>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5" class="text-center">No appointments found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

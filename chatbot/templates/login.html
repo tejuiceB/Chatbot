@@ -1,0 +1,143 @@
+{% extends 'base.html' %} {% block content %}
+<style>
+  .login-container {
+    background: linear-gradient(
+        rgba(255, 255, 255, 0.9),
+        rgba(255, 255, 255, 0.9)
+      ),
+      url("https://img.freepik.com/free-photo/mental-health-care-sketch-diagram_53876-121349.jpg");
+    background-size: cover;
+    background-position: center;
+    padding: 60px 0;
+    border-radius: 15px;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+  }
+  .login-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  .login-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px;
+    text-align: center;
+  }
+  .login-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+  }
+  .form-control {
+    border-radius: 10px;
+    padding: 12px;
+    border: 1px solid #dde;
+  }
+  .form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    border-color: #667eea;
+  }
+  .btn-login {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    padding: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  .btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  }
+  .divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+  }
+  .divider::before,
+  .divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+  }
+  .divider span {
+    padding: 0 10px;
+    color: #777;
+    font-size: 0.9rem;
+  }
+</style>
+
+<div class="login-container">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <div class="login-card">
+          <div class="login-header">
+            <i class="fas fa-brain login-icon"></i>
+            <h2 class="mb-0">Welcome Back</h2>
+            <p class="mb-0">Access your therapy account</p>
+          </div>
+          <div class="card-body p-4">
+            {% if messages %} {% for message in messages %}
+            <div
+              class="alert alert-{{ message.tags }} alert-dismissible fade show"
+            >
+              {{ message }}
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+              ></button>
+            </div>
+            {% endfor %} {% endif %}
+
+            <form method="post" class="needs-validation" novalidate>
+              {% csrf_token %}
+              <div class="mb-4">
+                <label for="username" class="form-label">
+                  <i class="fas fa-user text-primary"></i> Username
+                </label>
+                <input
+                  type="text"
+                  name="username"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="mb-4">
+                <label for="password" class="form-label">
+                  <i class="fas fa-lock text-primary"></i> Password
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary btn-login w-100">
+                <i class="fas fa-sign-in-alt"></i> Login
+              </button>
+            </form>
+
+            <div class="divider">
+              <span>New to Therapy Chat?</span>
+            </div>
+
+            <div class="text-center">
+              <a
+                href="{% url 'register' %}"
+                class="btn btn-outline-primary w-100"
+              >
+                <i class="fas fa-user-plus"></i> Create New Account
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

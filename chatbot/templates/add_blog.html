@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container py-4">
+  <h2 class="text-center mb-4">Add New Blog Post</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="id_title" class="form-label">Title</label>
+              {{ form.title }}
+            </div>
+            <div class="mb-3">
+              <label for="id_content" class="form-label">Content</label>
+              {{ form.content }}
+            </div>
+            <button type="submit" class="btn btn-primary">Add Blog</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

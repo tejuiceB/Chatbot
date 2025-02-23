@@ -1,0 +1,51 @@
+First, install required packages:
+pip install tensorflow nltk pandas numpy scikit-learn
+
+intents.json
+First, create a training data file:
+
+intents.json+36-1
+tejuice_chatbot.py
+Create the training script:
+
+tejuice_chatbot.py+77-1
+chatbot.py
+Create the chatbot class:
+
+chatbot.py
+
+Update the chat view to use the ML chatbot:
+views.py
+
+Steps to implement:
+
+Create the chatbot_model directory in your myapp folder
+Save all the files in their respective locations
+Install required packages
+Run the training script once to generate the model:
+cd chatbot/myapp/chatbot_model
+python tejuice_chatbot.py
+
+This implementation includes:
+
+Intent-based responses using neural networks
+Natural language processing with NLTK
+Conversation history storage in database
+Common therapy-related intents
+Response probability threshold
+Lemmatization for better understanding
+The chatbot will:
+
+Understand user intent
+Provide appropriate therapeutic responses
+Remember conversation history
+Handle common mental health topics
+Give contextual responses
+You can expand the intents.json file with more patterns and responses to make the chatbot more comprehensive.
+
+
+
+
+pip install --upgrade nltk
+python -m nltk.downloader all
+python tejuice_train.py

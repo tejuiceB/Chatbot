@@ -1,0 +1,26 @@
+Currently:
+
+Model starts with just 4 sample cases
+Makes basic predictions based on these patterns:
+LOW: Young age, low exposure, good vitals
+MEDIUM: Middle age, moderate symptoms
+HIGH: Older age, poor vitals, severe symptoms
+To get real learning:
+
+Add data to the database:
+python manage.py init_model  # First time setup
+
+After collecting real data (minimum 20 cases):
+python manage.py train_model  # Train with real data
+
+Monitor learning progress:
+GET /api/miner-health/model_status/
+
+To improve predictions:
+
+Input at least 20 real cases
+Get doctor feedback on predictions
+Let model retrain with corrected data
+System will gradually shift from default patterns to learned patterns
+The model starts very basic but will improve as you add more real cases and doctor feedback.
+

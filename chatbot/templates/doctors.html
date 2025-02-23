@@ -1,0 +1,156 @@
+{% extends 'base.html' %} {% block content %}
+<style>
+  .status-pending {
+    background-color: #ffc107 !important;
+  }
+  .status-confirmed {
+    background-color: #28a745 !important;
+  }
+  .status-cancelled {
+    background-color: #dc3545 !important;
+  }
+  .appointment-status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 15px;
+    color: white;
+  }
+</style>
+
+<div class="container py-4">
+  <h2 class="text-center mb-4">Our Mental Health Professionals</h2>
+
+  <div class="row">
+    {% for doctor in doctors %}
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          {% if doctor.profile_picture %}
+          <img
+            src="{{ doctor.profile_picture.url }}"
+            class="card-img-top rounded-circle mb-3"
+            style="width: 150px; height: 150px; object-fit: cover"
+          />
+          {% endif %}
+          <h5 class="card-title">Dr. {{ doctor.user.username }}</h5>
+          <p class="card-text">
+            <strong>Specialization:</strong> {{ doctor.specialization }}<br />
+            <strong>Experience:</strong> {{ doctor.experience }} years<br />
+            <strong>Available Times:</strong> {{ doctor.available_times }}
+          </p>
+          {% if user.userprofile.user_type == 'patient' %}
+          <button
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#appointmentModal{{ doctor.id }}"
+          >
+            Book Appointment
+          </button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Appointment Modal -->
+    {% if user.userprofile.user_type == 'patient' %}
+    <div class="modal fade" id="appointmentModal{{ doctor.id }}" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              Book Appointment with Dr. {{ doctor.user.username }}
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <form method="post">
+            {% csrf_token %}
+            <div class="modal-body">
+              <input type="hidden" name="doctor" value="{{ doctor.user.id }}" />
+              <div class="mb-3">
+                <label class="form-label">Date and Time</label>
+                <input
+                  type="datetime-local"
+                  name="date"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Notes</label>
+                <textarea name="notes" class="form-control" rows="3"></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary">
+                Book Appointment
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endif %} {% endfor %}
+  </div>
+
+  {% if user.userprofile.user_type == 'patient' and appointments %}
+  <div class="mt-5">
+    <h3>Your Appointments</h3>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for appointment in appointments %}
+          <tr>
+            <td>Dr. {{ appointment.doctor.username }}</td>
+            <td>{{ appointment.date|date:"F d, Y h:i A" }}</td>
+            <td>
+              <span class="appointment-status status-{{ appointment.status }}">
+                {{ appointment.status|title }}
+              </span>
+            </td>
+            <td>{{ appointment.notes }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const userType = document.getElementById("id_user_type");
+    const doctorFields = document.querySelectorAll(".doctor-field");
+
+    function toggleDoctorFields() {
+      const isDoctor = userType.value === "doctor";
+      doctorFields.forEach((field) => {
+        field.closest(".mb-3").style.display = isDoctor ? "block" : "none";
+        field.required = isDoctor;
+      });
+    }
+
+    userType.addEventListener("change", toggleDoctorFields);
+    toggleDoctorFields();
+  });
+</script>
+{% endblock %}
