@@ -2,7 +2,6 @@
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
-![Node.js](https://img.shields.io/badge/node-v14+-green.svg)
 
 An intelligent conversational agent powered by advanced NLP techniques and machine learning.
 
